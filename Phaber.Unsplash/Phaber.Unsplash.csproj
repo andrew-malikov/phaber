@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Limited Unsplash API for .NET</Description>
+    <PackageId>Phaber.Unsplash</PackageId>
+    <Authors>Andrew Malikov</Authors>
+    <Version>0.1.0</Version>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>API Unsplash</PackageTags>
+    <PackageProjectUrl>https://github.com/markupcode/phaber</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/markupcode/phaber</RepositoryUrl>
+    <Copyright>MIT License</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
