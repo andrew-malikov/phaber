@@ -16,10 +16,4 @@ namespace Phaber.Unsplash.Helpers {
             return uriWithQueries.Uri;
         }
     }
-
-
 }
-
-
-
-
