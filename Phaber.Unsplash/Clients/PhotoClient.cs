@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -56,6 +57,20 @@ namespace Phaber.Unsplash.Clients {
                     JObject.Parse(await body.AsStringAsync())["url"].ToString()
                 )
             )).Body;
+        }
+
+        public async Task<Stream> FetchPhotoContentStreamAsync(string id) {
+            return await FetchPhotoContentStreamAsync(
+                await GetDownloadLinkAsync(id)
+            );
+        }
+
+        public async Task<Stream> FetchPhotoContentStreamAsync(Uri photoUri) {
+            return await (await _connection.MakeStreamRequest(
+                _endpoints.Domain,
+                new Uri(photoUri.PathAndQuery),
+                HttpMethod.Get)
+            ).Content.ReadAsStreamAsync();
         }
     }
 }

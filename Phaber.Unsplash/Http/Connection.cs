@@ -12,10 +12,22 @@ namespace Phaber.Unsplash.Http {
         private Credentials _credentials;
         private IValidatableHttpResponse _responseHandler;
 
-        public Connection(HttpClient client, Credentials credentials, IValidatableHttpResponse responseHandler) {
+        public Connection(
+            HttpClient client,
+            Credentials credentials,
+            IValidatableHttpResponse responseHandler
+        ) {
             _client = client;
             _responseHandler = responseHandler;
             _credentials = credentials;
+        }
+
+        public Task<HttpResponseMessage> MakeRequest(
+            Func<HttpClient, HttpRequestMessage, Task<HttpResponseMessage>> requestHandler
+        ) {
+            return requestHandler(
+                _client, _credentials.Apply(new HttpRequestMessage())
+            );
         }
 
         public async Task<Response<T>> MakeRequest<T>(
@@ -49,6 +61,28 @@ namespace Phaber.Unsplash.Http {
                 await deserializationHandler(new HttpResponseBody(response.Content)),
                 response
             );
+        }
+
+        public Task<HttpResponseMessage> MakeRequest(
+            Uri domain,
+            Uri endpoint,
+            HttpMethod method
+        ) {
+            return new HttpClientBuilder(_client)
+                .SetDomain(domain).Done
+                .SendAsync(new HttpRequestMessage(method, endpoint));
+        }
+
+        public Task<HttpResponseMessage> MakeStreamRequest(
+            Uri domain,
+            Uri endpoint,
+            HttpMethod method
+        ) {
+            var request = new HttpRequestMessage(method, endpoint);
+
+            return new HttpClientBuilder(_client)
+                .SetDomain(domain).Done
+                .SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
         }
 
         public async Task<Response<T>> MakeRequest<T>(
