@@ -5,4 +5,4 @@ The library is more like a constructor for embedding into an IOC container than 
 ## Based on
 
 - [Unsplasharp](https://github.com/rootasjey/unsplasharp)
-- [Octokit]("https://github.com/octokit/octokit.net")
+- [Octokit](https://github.com/octokit/octokit.net)
