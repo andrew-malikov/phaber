@@ -26,7 +26,11 @@ Task("Build")
    .IsDependentOn("Restore")
    .IsDependentOn("Clean")
    .Does(() => {
-      DotNetCoreBuild(target);
+      var settings = new DotNetCoreBuildSettings {
+         Configuration = configuration
+      };
+
+      DotNetCoreBuild(target, settings);
    });
 
 Task("CleanArtifacts").Does(() => {
