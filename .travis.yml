@@ -1,0 +1,25 @@
+language: csharp
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      sudo: required
+branches:
+  only:
+  - master
+  - develop
+env:
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+    - DOTNET_CLI_TELEMETRY_OPTOUT=1
+    - secure: dag12IY1TK7kRzchrfxpCUASKNxbQdjz7XBB/PSkAeJjzmq+BakWEbYiEoQI5l8w2d5LAUdNhjPXv/4wLjqP/+c3qwGcfaDyxQk37hyPVaKVhHaSOZVQ5uWlA7hHJIesDXLxW+sStNX+nrlToddwwEals89Pgt9YTaOhY6ROhoLwpSJr1El6iZpsRZIIMRB2DD8XFz6N7Ghc3SAXo/3gjJf3vSyDJt8BL/i+aYSJzri7ypGiPWWjCr+A4qWN5WYU8OkaSJd+Yx0BsnldsJ4S3xE7/cvJgz0SzYXWqTUmRohOqmmsJxJBfKdYPH4YfmUGfVZ7Fgs+1BqVzFTBSjqrK88RE0oCmHxLIbiIcgS3S0SJbTFlko9kuJ/edw6tpdwXyPjVK6hlN/1Yud0teYkFN1TnGP9WcHwnJ0YZVziENYwc0A/DrB6tJfzEokRTMgiqw/83KJjvxLu7WIzRNGKkSp3Knn2lyfc0mfSrlFY1i8+tbyQibjOli5HGw8wMVJ0VIBZwD9S7mYn4jsTbj7wC9LcA3lul4+GTFyZKYtUeqgWceg0iduGcP/920zWxyo0wil9+Or2UZxtYk7iLTjZzh1gMJSIR6ZCVeqb/DsCS4W+X4AUUNZv4Odo5udXgcCIu0yitGXDShzzUTRYY3vu0wGhj87cXQyfTzhuMsbXC/c8=
+mono: latest
+dotnet: 2.2
+script:
+- ./build.sh
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./build.sh --task=Publish --nugetApiKey=$NugetApiKey
+  on:
+    branch: master
