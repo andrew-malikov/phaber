@@ -74,12 +74,6 @@ Task("Publish")
       }
    });
 
-if (isReleaseBuild)
-   Task("Default")
-      .IsDependentOn("Build")
-      .IsDependentOn("Publish");
-else
-   Task("Default")
-      .IsDependentOn("Build");
+Task("Default").IsDependentOn("Build");
 
 RunTarget(taskToExecute);

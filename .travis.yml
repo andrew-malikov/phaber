@@ -16,4 +16,10 @@ env:
 mono: latest
 dotnet: 2.2
 script:
-- ./build.sh --currentBranch=$TRAVIS_BRANCH --nugetApiKey=$NugetApiKey
+- ./build.sh
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./build.sh --task=Publish --nugetApiKey=$NugetApiKey
+  on:
+    branch: master
