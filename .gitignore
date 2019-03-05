@@ -343,3 +343,10 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database 
 healthchecksdb
+
+# cake cache
+tools/*
+!tools/packages.config
+
+# nuget packages
+artifacts/
