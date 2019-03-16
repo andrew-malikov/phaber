@@ -16,7 +16,7 @@ namespace Phaber.Unsplash.Http {
             if (handlers.Length > 0)
                 _chainedHandlers = new ChainableValidationHandler(
                     handlers.First(),
-                    handlers.Take(handlers.Length - 1).ToArray()
+                    handlers.Skip(1).ToArray()
                 );
         }
 
