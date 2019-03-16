@@ -1,7 +1,7 @@
 #addin nuget:?package=Cake.Git
 
-var taskToExecute = Argument("task", "Default");
-var target = Argument("target", "Phaber.sln");
+var target = Argument("target", "Default");
+var solution = Argument("solution", "Phaber.sln");
 var configuration = Argument("configuration", "Release");
 
 var artifactsDir = "./artifacts/";
@@ -19,7 +19,7 @@ Task("Restore").Does(() => {
 });
 
 Task("Clean").Does(() => {
-   DotNetCoreClean(target);
+   DotNetCoreClean(solution);
 });
 
 Task("Build")
@@ -30,7 +30,7 @@ Task("Build")
          Configuration = configuration
       };
 
-      DotNetCoreBuild(target, settings);
+      DotNetCoreBuild(solution, settings);
    });
 
 Task("CleanArtifacts").Does(() => {
@@ -56,7 +56,7 @@ Task("Pack")
          NoBuild = true
       };
 
-      DotNetCorePack(target, settings);
+      DotNetCorePack(solution, settings);
    });
 
 Task("Publish")
@@ -76,4 +76,4 @@ Task("Publish")
 
 Task("Default").IsDependentOn("Build");
 
-RunTarget(taskToExecute);
+RunTarget(target);

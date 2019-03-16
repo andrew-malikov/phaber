@@ -23,6 +23,6 @@ script:
 deploy:
   skip_cleanup: true
   provider: script
-  script: dotnet cake build.cake --task=Publish --nugetApiKey=$NugetApiKey
+  script: dotnet cake build.cake --target=Publish --nugetApiKey=$NugetApiKey
   on:
     branch: master
