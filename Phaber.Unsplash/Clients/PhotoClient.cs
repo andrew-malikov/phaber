@@ -10,10 +10,10 @@ using Phaber.Unsplash.Models;
 
 namespace Phaber.Unsplash.Clients {
     public class PhotoClient {
-        private readonly ApiUrls _endpoints;
+        private readonly ApiUris _endpoints;
         private readonly Connection _connection;
 
-        public PhotoClient(ApiUrls endpoints, Connection connection) {
+        public PhotoClient(ApiUris endpoints, Connection connection) {
             _endpoints = endpoints;
             _connection = connection;
         }
@@ -28,7 +28,6 @@ namespace Phaber.Unsplash.Clients {
 
         public async Task<Photo> GetPhotoAsync(string id) {
             return (await _connection.MakeRequest<Photo>(
-                _endpoints.Domain,
                 _endpoints.Photo(id),
                 HttpMethod.Get,
                 async body => JsonConvert.DeserializeObject<Photo>(
@@ -39,7 +38,6 @@ namespace Phaber.Unsplash.Clients {
 
         public async Task<Photo> GetPhotoAsync(string id, int width, int height) {
             return (await _connection.MakeRequest<Photo>(
-                _endpoints.Domain,
                 _endpoints.Photo(id, width, height),
                 HttpMethod.Get,
                 async body => JsonConvert.DeserializeObject<Photo>(
@@ -50,7 +48,6 @@ namespace Phaber.Unsplash.Clients {
 
         public async Task<Uri> GetDownloadLinkAsync(string id) {
             return (await _connection.MakeRequest<Uri>(
-                _endpoints.Domain,
                 _endpoints.PhotoDownloadLink(id),
                 HttpMethod.Get,
                 async body => new Uri(
@@ -67,7 +64,6 @@ namespace Phaber.Unsplash.Clients {
 
         public async Task<Stream> FetchPhotoContentStreamAsync(Uri photoUri) {
             return await (await _connection.MakeStreamRequest(
-                _endpoints.Domain,
                 new Uri(photoUri.PathAndQuery),
                 HttpMethod.Get)
             ).Content.ReadAsStreamAsync();

@@ -8,3 +8,4 @@ The library is more like a constructor for embedding into an IOC container than 
 
 - [Unsplasharp](https://github.com/rootasjey/unsplasharp)
 - [Octokit](https://github.com/octokit/octokit.net)
+- [UrlCombine](https://github.com/jean-lourenco/UrlCombine)
