@@ -10,10 +10,10 @@ using Phaber.Unsplash.Models;
 
 namespace Phaber.Unsplash.Clients {
     public class PhotoClient {
-        private readonly ApiUrls _endpoints;
+        private readonly ApiUris _endpoints;
         private readonly Connection _connection;
 
-        public PhotoClient(ApiUrls endpoints, Connection connection) {
+        public PhotoClient(ApiUris endpoints, Connection connection) {
             _endpoints = endpoints;
             _connection = connection;
         }
