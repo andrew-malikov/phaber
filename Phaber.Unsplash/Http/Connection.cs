@@ -63,36 +63,23 @@ namespace Phaber.Unsplash.Http {
             );
         }
 
-        public Task<HttpResponseMessage> MakeRequest(
-            Uri domain,
-            Uri endpoint,
-            HttpMethod method
-        ) {
-            return new HttpClientBuilder(_client)
-                .SetDomain(domain).Done
-                .SendAsync(new HttpRequestMessage(method, endpoint));
+        public Task<HttpResponseMessage> MakeRequest(Uri endpoint, HttpMethod method) {
+            return _client.SendAsync(new HttpRequestMessage(method, endpoint));
         }
 
-        public Task<HttpResponseMessage> MakeStreamRequest(
-            Uri domain,
-            Uri endpoint,
-            HttpMethod method
-        ) {
-            var request = new HttpRequestMessage(method, endpoint);
-
-            return new HttpClientBuilder(_client)
-                .SetDomain(domain).Done
-                .SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+        public Task<HttpResponseMessage> MakeStreamRequest(Uri endpoint, HttpMethod method) {
+            return _client.SendAsync(
+                new HttpRequestMessage(method, endpoint),
+                HttpCompletionOption.ResponseHeadersRead
+            );
         }
 
         public async Task<Response<T>> MakeRequest<T>(
-            Uri domain,
             Uri endpoint,
             HttpMethod method,
             Func<HttpResponseBody, Task<T>> deserializationHandler
         ) {
             return await MakeRequest<T>(
-                domain,
                 endpoint,
                 method,
                 new Dictionary<string, string>(),
@@ -101,7 +88,6 @@ namespace Phaber.Unsplash.Http {
         }
 
         public async Task<Response<T>> MakeRequest<T>(
-            Uri domain,
             Uri endpoint,
             HttpMethod method,
             Dictionary<string, string> headers,
@@ -112,9 +98,7 @@ namespace Phaber.Unsplash.Http {
                 _credentials.Apply(new HttpRequestMessage())
             ).SetMethod(method).AddHeaders(headers).Done;
 
-            var response = await new HttpClientBuilder(_client)
-                .SetDomain(domain).Done
-                .SendAsync(request);
+            var response = await _client.SendAsync(request);
 
             _responseHandler.Handle(response);
 
@@ -127,24 +111,22 @@ namespace Phaber.Unsplash.Http {
         }
 
         public PagedResponse<T> MakePagedRequest<T>(
-            Uri domain,
             Uri endpoint,
             int page,
             int perPage,
             HttpMethod method,
             Func<HttpResponseBody, Task<T>> deserializationHandler
         ) {
-            var linkToPage = new Uri(domain, endpoint.AddQueries(
+            var linkToPage = endpoint.AddQueries(
                 new Dictionary<string, string>() {
                     { "page", $"{page}" },
                     { "per_page", $"{perPage}" }
                 }
-            ));
+            );
 
             return new PagedResponse<T>(
                 Page.Initial(linkToPage, page - 1, perPage),
                 async endpointWithQuery => await MakeRequest(
-                    domain,
                     endpointWithQuery,
                     method,
                     deserializationHandler

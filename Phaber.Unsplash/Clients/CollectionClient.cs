@@ -22,7 +22,6 @@ namespace Phaber.Unsplash.Clients {
 
         public async Task<Collection> GetAsync(string collectionId) {
             return (await _connection.MakeRequest<Collection>(
-                _endpoints.Domain,
                 _endpoints.Collection(collectionId),
                 HttpMethod.Get,
                 async body => JsonConvert.DeserializeObject<Collection>(
@@ -37,7 +36,6 @@ namespace Phaber.Unsplash.Clients {
             int perPage = 30
         ) {
             return _connection.MakePagedRequest<List<Photo>>(
-                _endpoints.Domain,
                 _endpoints.CollectionPhotos(collectionId),
                 page,
                 perPage,
