@@ -33,6 +33,19 @@ Task("Build")
       DotNetCoreBuild(solution, settings);
    });
 
+Task("Test")
+   .Does(() => {
+         var projects = GetFiles("./*Test/*.csproj");
+         
+         var settings = new DotNetCoreTestSettings() {
+            Configuration = configuration,
+            NoBuild = true
+         };
+         
+         foreach(var project in projects) 
+            DotNetCoreTest(project.FullPath, settings);   
+   });
+
 Task("CleanArtifacts").Does(() => {
    if (DirectoryExists(artifactsDir)) {
       DeleteDirectory(
@@ -48,6 +61,7 @@ Task("CleanArtifacts").Does(() => {
 });
 
 Task("Pack")
+   .IsDependentOn("Test")
    .IsDependentOn("CleanArtifacts")
    .Does(() => {
       var settings = new DotNetCorePackSettings {
@@ -74,6 +88,8 @@ Task("Publish")
       }
    });
 
-Task("Default").IsDependentOn("Build");
+Task("Default")
+   .IsDependentOn("Build")
+   .IsDependentOn("Test");
 
 RunTarget(target);
