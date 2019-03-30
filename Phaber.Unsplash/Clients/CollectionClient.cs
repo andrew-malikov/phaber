@@ -7,7 +7,7 @@ using Phaber.Unsplash.Http;
 using Phaber.Unsplash.Models;
 
 namespace Phaber.Unsplash.Clients {
-    public class CollectionClient {
+    public class CollectionClient : ICollectionClient {
         private readonly ApiUris _endpoints;
         private readonly Connection _connection;
 
