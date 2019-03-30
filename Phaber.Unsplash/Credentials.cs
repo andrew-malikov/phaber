@@ -22,7 +22,7 @@ namespace Phaber.Unsplash {
 
         public HttpRequestMessage Apply(HttpRequestMessage request) {
             request.Headers.Add(
-                "Authorization", $"Client-Id {ApplicationId}"
+                "Authorization", $"Client-ID {ApplicationId}"
             );
 
             return request;
