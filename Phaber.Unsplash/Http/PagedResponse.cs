@@ -21,16 +21,14 @@ namespace Phaber.Unsplash.Http {
         }
 
         public async Task<Response<T>> Next() {
-            return await MoveTo(new Uri(Page.LinkToNext.PathAndQuery));
+            return await MoveTo(Page.LinkToNext);
         }
 
         protected async Task<Response<T>> MoveTo(Uri pageLink) {
             if (pageLink == null)
                 throw new PageNotExistException();
 
-            var response = await _requestHandler(
-                new Uri(pageLink.PathAndQuery)
-            );
+            var response = await _requestHandler(pageLink);
 
             Page = new Page(response.Headers, Page.LinkToNext, Page.Number + 1);
 
