@@ -96,7 +96,7 @@ namespace Phaber.Unsplash.Http {
 
             var request = new HttpRequestBuilder(
                 _credentials.Apply(new HttpRequestMessage())
-            ).SetMethod(method).AddHeaders(headers).Done;
+            ).SetMethod(method).AddHeaders(headers).SetEndpoint(endpoint).Done;
 
             var response = await _client.SendAsync(request);
 
