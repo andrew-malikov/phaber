@@ -9,7 +9,7 @@ using Phaber.Unsplash.Http;
 using Phaber.Unsplash.Models;
 
 namespace Phaber.Unsplash.Clients {
-    public class PhotoClient {
+    public class PhotoClient : IPhotoClient {
         private readonly ApiUris _endpoints;
         private readonly Connection _connection;
 

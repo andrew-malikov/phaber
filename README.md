@@ -1,6 +1,8 @@
 # Phaber is a .NET client for the Unsplash API
 
 [![Build Status](https://travis-ci.org/markupCode/phaber.svg?branch=develop)](https://travis-ci.org/markupCode/phaber)
+![Nuget](https://img.shields.io/nuget/v/Phaber.Unsplash.svg?style=social)
+![GitHub](https://img.shields.io/github/license/markupcode/phaber.svg?style=social)
 
 The library is more like a constructor for embedding into an IOC container than a full API client.
 
