@@ -8,7 +8,7 @@ using Phaber.Unsplash.Exceptions;
 using Phaber.Unsplash.Helpers;
 
 namespace Phaber.Unsplash.Http {
-    public class PagedResponse<T> : IEnumerator<Response<T>> {
+    public class PagedResponse<T> : IEnumerator<Response<T>>, IEnumerable<Response<T>> {
         private Page _currentPage;
         public int PageNumber => _currentPage.Number;
         public int Pages => _currentPage.Pages;
@@ -57,6 +57,15 @@ namespace Phaber.Unsplash.Http {
 
         public void Reset() {
             throw new NotImplementedException();
+        }
+
+
+        public IEnumerator<Response<T>> GetEnumerator() {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this;
         }
 
         public void Dispose() { }
