@@ -41,15 +41,35 @@ namespace Phaber.Unsplash.Http {
             }
         }
 
-        protected Page(Uri link, int pageNumber, int perPage, int pages) {
-            Link = link;
+        protected Page(
+            Uri link,
+            int pageNumber,
+            int perPage,
+            int pages,
+            PaginationDirection direction
+        ) {
             Number = pageNumber;
             PerPage = perPage;
             Pages = pages;
+
+            switch (direction) {
+                case PaginationDirection.Ascending:
+                    LinkToNext = link;
+                    break;
+                case PaginationDirection.Descending:
+                    LinkToPrevious = link;
+                    break;
+            }
         }
 
-        public static Page Initial(Uri link, int pageNumber, int perPage, int pages = 0) {
-            return new Page(link, pageNumber, perPage, pages);
+        public static Page From(InitialPage initialPage) {
+            return new Page(
+                initialPage.Link,
+                initialPage.PageNumber,
+                initialPage.PerPage,
+                1,
+                initialPage.Direction
+            );
         }
     }
 }

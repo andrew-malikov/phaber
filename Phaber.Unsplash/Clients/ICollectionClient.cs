@@ -7,7 +7,7 @@ namespace Phaber.Unsplash.Clients {
     public interface ICollectionClient {
         Task<Collection> GetAsync(Collection collection);
         Task<Collection> GetAsync(string collectionId);
-        PagedResponse<List<Photo>> GetPhotosAsync(
+        PagedResponse<List<Photo>> GetPhotos(
             string collectionId,
             int page = 1,
             int perPage = 30

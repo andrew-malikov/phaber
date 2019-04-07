@@ -125,9 +125,9 @@ namespace Phaber.Unsplash.Http {
             );
 
             return new PagedResponse<T>(
-                Page.Initial(linkToPage, page - 1, perPage),
-                async endpointWithQuery => await MakeRequest(
-                    endpointWithQuery,
+                Page.From(new InitialPage(linkToPage, page, perPage)),
+                async endpointToPage => await MakeRequest(
+                    endpointToPage,
                     method,
                     deserializationHandler
                 )
