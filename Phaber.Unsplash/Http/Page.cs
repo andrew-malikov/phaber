@@ -31,14 +31,22 @@ namespace Phaber.Unsplash.Http {
             if (headers.ContainsKey("X-Total") && PerPage > 0)
                 Pages = int.Parse(headers["X-Total"]) / PerPage;
 
-            if (headers.ContainsKey("Link")) {
-                var links = new ParsedLinks(headers["Link"]).Values;
+            if (headers.ContainsKey("Link"))
+                SetupLinks(new ParsedLinks(headers["Link"]).Values);
+        }
 
+        private void SetupLinks(Dictionary<string, Uri> links) {
+            if (links.ContainsKey("next"))
                 LinkToNext = links["next"];
+
+            if (links.ContainsKey("prev"))
                 LinkToPrevious = links["prev"];
+
+            if (links.ContainsKey("last"))
                 LinkToLast = links["last"];
+
+            if (links.ContainsKey("first"))
                 LinkToFirst = links["first"];
-            }
         }
 
         protected Page(
