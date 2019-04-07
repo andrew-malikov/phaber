@@ -8,20 +8,28 @@ using Phaber.Unsplash.Exceptions;
 using Phaber.Unsplash.Helpers;
 
 namespace Phaber.Unsplash.Http {
-    public class PagedResponse<T> {
-        public Page Page { get; private set; }
+    public class PagedResponse<T> : IEnumerator<Response<T>> {
+        private Page _currentPage;
+        public int PageNumber => _currentPage.Number;
+        public int Pages => _currentPage.Pages;
+        public int PerPage => _currentPage.PerPage;
+
+        private Response<T> _dataPage;
+        public Response<T> Current =>
+            _dataPage != null
+            ? _dataPage
+            : throw new InvalidOperationException();
+
+        object IEnumerator.Current => Current;
+
         private Func<Uri, Task<Response<T>>> _requestHandler;
 
         public PagedResponse(
             Page page,
             Func<Uri, Task<Response<T>>> requestHandler
         ) {
-            Page = page;
+            _currentPage = page;
             _requestHandler = requestHandler;
-        }
-
-        public async Task<Response<T>> Next() {
-            return await MoveTo(Page.LinkToNext);
         }
 
         protected async Task<Response<T>> MoveTo(Uri pageLink) {
@@ -30,9 +38,27 @@ namespace Phaber.Unsplash.Http {
 
             var response = await _requestHandler(pageLink);
 
-            Page = new Page(response.Headers, Page.LinkToNext, Page.Number + 1);
+            _currentPage = new Page(
+                response.Headers,
+                _currentPage.LinkToNext,
+                _currentPage.Number + 1
+            );
 
             return response;
         }
+
+        public bool MoveNext() {
+            if (!_currentPage.HasLinkToNext)
+                return false;
+
+            _dataPage = MoveTo(_currentPage.LinkToNext).Result;
+            return true;
+        }
+
+        public void Reset() {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose() { }
     }
 }
