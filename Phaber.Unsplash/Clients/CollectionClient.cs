@@ -30,7 +30,7 @@ namespace Phaber.Unsplash.Clients {
             )).Body;
         }
 
-        public PagedResponse<List<Photo>> GetPhotosAsync(
+        public PagedResponse<List<Photo>> GetPhotos(
             string collectionId,
             int page = 1,
             int perPage = 30
