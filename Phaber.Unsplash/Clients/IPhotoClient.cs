@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Phaber.Unsplash.Models;
+using Phaber.Unsplash.Entities;
 
 namespace Phaber.Unsplash.Clients {
     public interface IPhotoClient {

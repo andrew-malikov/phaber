@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Phaber.Unsplash.Entities;
 using Phaber.Unsplash.Http;
-using Phaber.Unsplash.Models;
 
 namespace Phaber.Unsplash.Clients {
     public interface ICollectionClient {

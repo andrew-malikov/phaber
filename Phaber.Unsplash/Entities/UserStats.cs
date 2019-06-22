@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Phaber.Unsplash.Models {
+namespace Phaber.Unsplash.Entities {
     [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
-    public class PhotoStats {
-        public string Id { get; set; }
+    public class UserStats {
+        public string Username { get; set; }
 
         public StatsData Downloads { get; set; }
 

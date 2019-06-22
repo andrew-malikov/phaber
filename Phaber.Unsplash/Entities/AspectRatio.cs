@@ -1,8 +1,7 @@
 using System;
-
 using Phaber.Unsplash.Helpers;
 
-namespace Phaber.Unsplash.Models {
+namespace Phaber.Unsplash.Entities {
     /// <summary>
     /// Represent a ratio between width and height
     /// </summary>

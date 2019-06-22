@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Phaber.Unsplash.Entities;
 using Phaber.Unsplash.Http;
-using Phaber.Unsplash.Models;
 
 namespace Phaber.Unsplash.Clients {
     public class PhotoClient : IPhotoClient {

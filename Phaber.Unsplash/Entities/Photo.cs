@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Phaber.Unsplash.Models {
+namespace Phaber.Unsplash.Entities {
     [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class Photo {
         public string Id { get; set; }

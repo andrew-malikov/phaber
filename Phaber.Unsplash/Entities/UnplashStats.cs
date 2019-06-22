@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Phaber.Unsplash.Models {
+namespace Phaber.Unsplash.Entities {
     /// <summary>
     /// Unsplash statistics counts.
     /// </summary>

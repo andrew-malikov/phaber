@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Phaber.Unsplash.Models {
+namespace Phaber.Unsplash.Entities {
     /// <summary>
     /// Represents a collection of photos.
     /// </summary>
