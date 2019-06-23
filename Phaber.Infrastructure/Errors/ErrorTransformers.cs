@@ -16,7 +16,7 @@ namespace Phaber.Infrastructure.Errors {
                 );
         }
 
-        public static IEnumerable<TE> filterByType<TE>(
+        public static IEnumerable<TE> FilterByType<TE>(
             this IEnumerable<Error> errors
         ) where TE : Error{
             return (IEnumerable<TE>) errors
