@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Phaber.Infrastructure.Errors;
+using Phaber.Unsplash.Errors;
 
 namespace Phaber.Unsplash.Models {
     public interface IFallibleResponse {
-        IEnumerable<Error> Errors { get; }
+        IEnumerable<IError> Errors { get; }
         bool IsSuccess { get; }
     }
 }
