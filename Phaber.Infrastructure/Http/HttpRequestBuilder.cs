@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace Phaber.Unsplash.Helpers {
+namespace Phaber.Infrastructure.Http {
     public class HttpRequestBuilder {
         private readonly HttpRequestMessage _request;
 
@@ -29,8 +29,9 @@ namespace Phaber.Unsplash.Helpers {
         }
 
         public HttpRequestBuilder AddHeaders(Dictionary<string, string> headers) {
-            foreach (var header in headers)
+            foreach (var header in headers) {
                 _request.Headers.Add(header.Key, header.Value);
+            }
 
             return this;
         }

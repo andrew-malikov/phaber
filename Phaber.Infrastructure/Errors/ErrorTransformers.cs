@@ -19,11 +19,23 @@ namespace Phaber.Infrastructure.Errors {
 
         public static IEnumerable<TE> FilterByType<TE>(
             this IEnumerable<IError> errors
-        ) where TE : IError{
+        ) where TE : IError {
             return (IEnumerable<TE>) errors
                 .Where(
                     error => error.GetType() == typeof(TE)
                 );
+        }
+
+        public static IEnumerable<IError> Merge(
+            this IEnumerable<IError> errors,
+            IEnumerable<IError> toMerge
+        ) {
+            var merged = new List<IError>();
+
+            merged.AddRange(errors);
+            merged.AddRange(toMerge);
+
+            return merged;
         }
     }
 }

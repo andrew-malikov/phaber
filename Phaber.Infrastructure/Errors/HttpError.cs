@@ -1,22 +1,19 @@
+using System.Collections.Generic;
 using System.Net;
-using System.Net.Http.Headers;
-using Phaber.Unsplash.Errors;
 
 namespace Phaber.Infrastructure.Errors {
-    public class HttpError : IError {
+    public class HttpError : Error {
         public readonly HttpStatusCode StatusCode;
-        public readonly HttpHeaders Headers;
-
-        public string Message { get; private set; }
+        public readonly Dictionary<string, string> Headers;
 
         public HttpError(
+            string debugMessage,
             string message,
             HttpStatusCode statusCode,
-            HttpHeaders headers
-        ) {
+            Dictionary<string, string> headers
+        ) : base(debugMessage, message) {
             StatusCode = statusCode;
             Headers = headers;
-            Message = message;
         }
     }
 }

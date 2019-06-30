@@ -9,7 +9,7 @@ namespace Phaber.Infrastructure.Models {
         public IEnumerable<IError> Errors { get; }
         public bool IsSuccess => !Errors.Any();
 
-        private FallibleResponse(IEnumerable<IError> errors) {
+        protected FallibleResponse(IEnumerable<IError> errors) {
             Errors = errors;
         }
 
@@ -19,6 +19,10 @@ namespace Phaber.Infrastructure.Models {
 
         public static FallibleResponse OfFailure(params IError[] errors) {
             return new FallibleResponse(errors.ToList());
+        }
+
+        public static FallibleResponse OfFailure(IEnumerable<IError> errors) {
+            return new FallibleResponse(errors);
         }
     }
 }

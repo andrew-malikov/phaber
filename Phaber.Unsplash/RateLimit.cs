@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-
 using Phaber.Unsplash.Helpers;
 
 namespace Phaber.Unsplash {
@@ -30,9 +29,9 @@ namespace Phaber.Unsplash {
                 .ToDictionary(h => h.Key, h => h.Value.Aggregate())
         ) { }
 
-        public RateLimit(IDictionary<string, string> responseHeaders) : this(
-            (int)GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Limit"),
-            (int)GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Remaining")
+        public RateLimit(IReadOnlyDictionary<string, string> responseHeaders) : this(
+            (int) GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Limit"),
+            (int) GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Remaining")
         ) { }
 
         public RateLimit(int limit, int remaining) {
@@ -55,7 +54,7 @@ namespace Phaber.Unsplash {
 
         private RateLimit() { }
 
-        static long GetHeaderValueAsInt32Safe(IDictionary<string, string> responseHeaders, string key) {
+        static long GetHeaderValueAsInt32Safe(IReadOnlyDictionary<string, string> responseHeaders, string key) {
             string value;
             long result;
             return !responseHeaders.TryGetValue(key, out value) || value == null || !long.TryParse(value, out result)

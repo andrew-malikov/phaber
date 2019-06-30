@@ -16,7 +16,7 @@ namespace Phaber.Unsplash.Entities {
             if (width < 0 || height < 0)
                 throw new ArgumentException();
 
-            var gcd = width.GCD(height);
+            var gcd = width.Gcd(height);
 
             Width = width / gcd;
             Height = height / gcd;

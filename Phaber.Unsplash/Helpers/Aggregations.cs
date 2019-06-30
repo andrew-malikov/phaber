@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Phaber.Unsplash.Helpers {
     public static class Aggregations {
@@ -8,7 +6,7 @@ namespace Phaber.Unsplash.Helpers {
             this IEnumerable<string> context,
             string delimiter = ""
         ) {
-            return String.Join(delimiter, context);
+            return string.Join(delimiter, context);
         }
     }
 }

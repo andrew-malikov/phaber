@@ -1,20 +1,20 @@
 using System;
 
-namespace Phaber.Unsplash.Http {
+namespace Phaber.Infrastructure.Http {
     public class InitialPage {
         public readonly Uri Link;
-        public readonly int PageNumber;
-        public readonly int PerPage;
+        public int Page { get; private set; }
+        public int PerPage { get; private set; }
         public readonly PaginationDirection Direction;
 
         public InitialPage(
             Uri link,
-            int pageNumber,
+            int page,
             int perPage,
             PaginationDirection direction = PaginationDirection.Ascending
         ) {
             Link = link;
-            PageNumber = pageNumber;
+            Page = page;
             PerPage = perPage;
             Direction = direction;
         }
@@ -25,4 +25,3 @@ namespace Phaber.Unsplash.Http {
         Descending
     }
 }
-

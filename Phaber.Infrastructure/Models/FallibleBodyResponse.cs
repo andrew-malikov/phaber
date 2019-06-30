@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Optional;
-using Phaber.Infrastructure.Errors;
 using Phaber.Unsplash.Errors;
 using Phaber.Unsplash.Models;
 
@@ -12,10 +11,20 @@ namespace Phaber.Infrastructure.Models {
 
         private readonly Option<TV> _valuable;
 
-        private FallibleBodyResponse(TV valuable, IEnumerable<IError> errors) {
-            Errors = errors;
+        protected FallibleBodyResponse(
+            TV valuable,
+            IEnumerable<IError> errors
+        ) : this(
+            valuable != null ? Option.Some(valuable) : Option.None<TV>(),
+            errors
+        ) { }
 
-            _valuable = valuable != null ? Option.Some(valuable) : Option.None<TV>();
+        protected FallibleBodyResponse(
+            Option<TV> valuable,
+            IEnumerable<IError> errors
+        ) {
+            _valuable = valuable;
+            Errors = errors;
         }
 
         public static FallibleBodyResponse<TV> OfSuccessful(TV body) {
@@ -25,7 +34,20 @@ namespace Phaber.Infrastructure.Models {
             );
         }
 
-        public static FallibleBodyResponse<TV> OfFailure(TV body, params IError[] errors) {
+        public static FallibleBodyResponse<TV> OfFailure(
+            Option<TV> body,
+            params IError[] errors
+        ) {
+            return new FallibleBodyResponse<TV>(
+                body,
+                errors.ToList()
+            );
+        }
+
+        public static FallibleBodyResponse<TV> OfFailure(
+            TV body,
+            params IError[] errors
+        ) {
             return new FallibleBodyResponse<TV>(
                 body,
                 errors.ToList()
@@ -36,6 +58,33 @@ namespace Phaber.Infrastructure.Models {
             return new FallibleBodyResponse<TV>(
                 null,
                 errors.ToList()
+            );
+        }
+
+        public static FallibleBodyResponse<TV> OfFailure(
+            Option<TV> body,
+            IEnumerable<IError> errors
+        ) {
+            return new FallibleBodyResponse<TV>(
+                body,
+                errors
+            );
+        }
+
+        public static FallibleBodyResponse<TV> OfFailure(
+            TV body,
+            IEnumerable<IError> errors
+        ) {
+            return new FallibleBodyResponse<TV>(
+                body,
+                errors
+            );
+        }
+
+        public static FallibleBodyResponse<TV> OfFailure(IEnumerable<IError> errors) {
+            return new FallibleBodyResponse<TV>(
+                null,
+                errors
             );
         }
 

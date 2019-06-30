@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Phaber.Infrastructure.Http;
+using Phaber.Unsplash.Models;
 
-namespace Phaber.Unsplash.Http {
-    public class Page {
-        public readonly int Number;
-        public readonly int PerPage = 0;
-        public readonly int Pages = 0;
+namespace Phaber.Infrastructure.Models {
+    public class Pageable : IPageable {
+        public int Page { get; private set; }
+        public int Pages { get; private set; }
+        public int PerPage { get; private set; }
 
         public Uri LinkToNext { get; private set; }
         public bool HasLinkToNext => LinkToNext != null;
@@ -21,42 +23,53 @@ namespace Phaber.Unsplash.Http {
 
         public readonly Uri Link;
 
-        public Page(Dictionary<string, string> headers, Uri link, int pageNumber = 1) {
-            Link = link;
-            Number = pageNumber;
-
-            if (headers.ContainsKey("X-Per-Page"))
-                PerPage = int.Parse(headers["X-Per-Page"]);
-
-            if (headers.ContainsKey("X-Total") && PerPage > 0)
-                Pages = int.Parse(headers["X-Total"]) / PerPage;
-
-            if (headers.ContainsKey("Link"))
-                SetupLinks(new ParsedLinks(headers["Link"]).Values);
-        }
-
-        private void SetupLinks(Dictionary<string, Uri> links) {
-            if (links.ContainsKey("next"))
-                LinkToNext = links["next"];
-
-            if (links.ContainsKey("prev"))
-                LinkToPrevious = links["prev"];
-
-            if (links.ContainsKey("last"))
-                LinkToLast = links["last"];
-
-            if (links.ContainsKey("first"))
-                LinkToFirst = links["first"];
-        }
-
-        protected Page(
+        public Pageable(
+            IReadOnlyDictionary<string, string> headers,
             Uri link,
-            int pageNumber,
+            int page = 1
+        ) {
+            Link = link;
+            Page = page;
+
+            if (headers.ContainsKey("X-Per-Page")) {
+                PerPage = int.Parse(headers["X-Per-Page"]);
+            }
+
+            if (headers.ContainsKey("X-Total") && PerPage > 0) {
+                Pages = int.Parse(headers["X-Total"]) / PerPage;
+            }
+
+            if (headers.ContainsKey("Link")) {
+                SetupLinks(new ParsedLinks(headers["Link"]).Values);
+            }
+        }
+
+        private void SetupLinks(IReadOnlyDictionary<string, Uri> links) {
+            if (links.ContainsKey("next")) {
+                LinkToNext = links["next"];
+            }
+
+            if (links.ContainsKey("prev")) {
+                LinkToPrevious = links["prev"];
+            }
+
+            if (links.ContainsKey("last")) {
+                LinkToLast = links["last"];
+            }
+
+            if (links.ContainsKey("first")) {
+                LinkToFirst = links["first"];
+            }
+        }
+
+        protected Pageable(
+            Uri link,
+            int page,
             int perPage,
             int pages,
             PaginationDirection direction
         ) {
-            Number = pageNumber;
+            Page = page;
             PerPage = perPage;
             Pages = pages;
 
@@ -70,10 +83,10 @@ namespace Phaber.Unsplash.Http {
             }
         }
 
-        public static Page From(InitialPage initialPage) {
-            return new Page(
+        public static Pageable From(InitialPage initialPage) {
+            return new Pageable(
                 initialPage.Link,
-                initialPage.PageNumber,
+                initialPage.Page,
                 initialPage.PerPage,
                 1,
                 initialPage.Direction

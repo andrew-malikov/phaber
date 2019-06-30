@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Phaber.Unsplash.Http {
+namespace Phaber.Infrastructure.Http {
     public class ParsedLinks {
         public readonly Dictionary<string, Uri> Values;
 
