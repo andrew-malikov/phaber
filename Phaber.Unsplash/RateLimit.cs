@@ -39,7 +39,7 @@ namespace Phaber.Unsplash {
             Remaining = remaining;
 
             var reset = DateTimeOffset.UtcNow;
-            reset
+            reset = reset
                 .AddHours(1)
                 .Subtract(new TimeSpan(0, reset.Minute, reset.Second));
 
