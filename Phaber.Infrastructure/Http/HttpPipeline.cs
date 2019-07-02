@@ -28,7 +28,13 @@ namespace Phaber.Infrastructure.Http {
             errorResolver
         ) { }
 
-        public HttpPipeline() : this(new RateLimitErrorResolver()) { }
+        public HttpPipeline() : this(
+            new ChainedErrorResolver<HttpResponseMessage>(
+                new RateLimitErrorResolver(),
+                new UnauthenticatedErrorResolver(),
+                new ResourceNotFoundErrorResolver()
+            )
+        ) { }
 
         public HttpRequestMessage ApplyCredentials(
             HttpRequestMessage request,
