@@ -54,6 +54,23 @@ namespace Phaber.Unsplash.Entities {
         /// Photo's link relations
         /// </summary>
         public PhotoLinks Links { get; set; }
+        
+        protected bool Equals(Photo other) {
+            return Id == other.Id;
+        }
+
+        public override bool Equals(object other) {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            
+            if (other.GetType() != GetType()) return false;
+            
+            return Equals((Photo) other);
+        }
+
+        public override int GetHashCode() {
+            return Id.GetHashCode();
+        }
     }
 
     [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]

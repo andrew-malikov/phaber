@@ -73,7 +73,7 @@ namespace Phaber.Unsplash.Clients {
 
         public async Task<IFallibleBodyResponse<Stream>> FetchPhotoContentStreamAsync(Uri photoUri) {
             var response = await _connection.MakeStreamRequest(
-                new Uri(photoUri.PathAndQuery),
+                photoUri,
                 HttpMethod.Get
             );
 
