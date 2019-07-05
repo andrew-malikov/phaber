@@ -54,22 +54,22 @@ namespace Phaber.Unsplash.Entities {
         /// Photo's link relations
         /// </summary>
         public PhotoLinks Links { get; set; }
-        
+
         protected bool Equals(Photo other) {
-            return Id == other.Id;
+            return string.Equals(Id, other.Id);
         }
 
         public override bool Equals(object other) {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            
+
             if (other.GetType() != GetType()) return false;
-            
+
             return Equals((Photo) other);
         }
 
         public override int GetHashCode() {
-            return Id.GetHashCode();
+            return Id != null ? Id.GetHashCode() : 0;
         }
     }
 
@@ -138,7 +138,6 @@ namespace Phaber.Unsplash.Entities {
         public int Latitude { get; set; }
 
         public int Longitude { get; set; }
-
     }
 
     /// <summary>
@@ -157,8 +156,7 @@ namespace Phaber.Unsplash.Entities {
 
         public string Small { get; set; }
 
-        [JsonProperty("thumb")]
-        public string Thumbnail { get; set; }
+        [JsonProperty("thumb")] public string Thumbnail { get; set; }
 
         /// <summary>
         /// URL linking to the photo in a custom size if specified by the user.
@@ -191,7 +189,5 @@ namespace Phaber.Unsplash.Entities {
         /// Link to all photos in this category.
         /// </summary>
         public string Photos { get; set; }
-
     }
 }
-

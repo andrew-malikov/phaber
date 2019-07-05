@@ -42,10 +42,10 @@ namespace Phaber.Infrastructure.Tests.Clients {
         }
 
         [TestMethod]
-        public async Task ShouldReturnPhotosByCollectionId() {
+        public void ShouldReturnPhotosByCollectionId() {
             var collectionId = "4807737";
 
-            var pageablePhotos = _client.GetPhotos(collectionId);
+            var pageablePhotos = _client.GetPhotos(collectionId, 1, 15);
 
             foreach (var photos in pageablePhotos) {
                 Assert.IsTrue(photos.IsSuccess);

@@ -32,6 +32,23 @@ namespace Phaber.Unsplash.Entities {
         public User User { get; set; }
 
         public CollectionLinks Links { get; set; }
+
+        protected bool Equals(Collection other) {
+            return string.Equals(Id, other.Id);
+        }
+
+        public override bool Equals(object other) {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            if (other.GetType() != GetType()) return false;
+
+            return Equals((Collection) other);
+        }
+
+        public override int GetHashCode() {
+            return Id != null ? Id.GetHashCode() : 0;
+        }
     }
 
     [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
