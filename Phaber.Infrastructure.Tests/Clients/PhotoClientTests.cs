@@ -1,14 +1,13 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Optional.Unsafe;
 using Phaber.Infrastructure.Tests.Environment;
 using Phaber.Unsplash.Clients;
 using Phaber.Unsplash.Entities;
+using Xunit;
 
 namespace Phaber.Infrastructure.Tests.Clients {
-    [TestClass]
     public class PhotoClientTests {
         private readonly IPhotoClient _client;
 
@@ -16,56 +15,56 @@ namespace Phaber.Infrastructure.Tests.Clients {
             _client = new EnvironmentHttpClientFabric().GetPhotoClient();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ShouldReturnPhotoById() {
             var photoId = "sZey8cPbJqg";
 
             var foundPhoto = await _client.GetPhotoAsync(photoId);
 
-            Assert.IsTrue(foundPhoto.IsSuccess);
-            Assert.AreEqual(
+            Assert.True(foundPhoto.IsSuccess);
+            Assert.Equal(
                 photoId,
                 foundPhoto.Retrieve().ValueOrFailure().Id
             );
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ShouldReturnPhotoByModel() {
             var photoModel = new Photo { Id = "sZey8cPbJqg" };
 
             var foundPhoto = await _client.GetPhotoAsync(photoModel);
 
-            Assert.IsTrue(foundPhoto.IsSuccess);
-            Assert.AreEqual(
+            Assert.True(foundPhoto.IsSuccess);
+            Assert.Equal(
                 photoModel,
                 foundPhoto.Retrieve().ValueOrFailure()
             );
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ShouldReturnDownloadLinkByPhotoId() {
             var photoId = "sZey8cPbJqg";
 
             var downloadLink = await _client.GetDownloadLinkAsync(photoId);
 
-            Assert.IsTrue(downloadLink.IsSuccess);
-            StringAssert.Matches(
-                downloadLink.Retrieve().ValueOrFailure().ToString(),
-                new Regex("^.+$")
+            Assert.True(downloadLink.IsSuccess);
+            Assert.Matches(
+                new Regex("^.+$"),
+                downloadLink.Retrieve().ValueOrFailure().ToString()
             );
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ShouldReturnStreamOfPhotoContentByPhotoId() {
             var contentToFetch = await _client.FetchPhotoContentStreamAsync("sZey8cPbJqg");
 
-            Assert.IsTrue(contentToFetch.IsSuccess);
+            Assert.True(contentToFetch.IsSuccess);
 
             var fetchedContent = new StreamReader(
                 contentToFetch.Retrieve().ValueOrFailure()
             );
 
-            Assert.IsTrue(fetchedContent.ReadToEnd().Length > 0);
+            Assert.True(fetchedContent.ReadToEnd().Length > 0);
         }
     }
 }

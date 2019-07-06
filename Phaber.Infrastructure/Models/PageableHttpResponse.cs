@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Optional;
 using Phaber.Infrastructure.Errors;
-using Phaber.Infrastructure.Http;
 using Phaber.Unsplash.Models;
 
 namespace Phaber.Infrastructure.Models {
@@ -27,7 +26,7 @@ namespace Phaber.Infrastructure.Models {
         }
 
         protected async Task<IFalliblePageResponse<TV>> MoveTo(Uri pageLink) {
-            var response = await _resolvableRequest(pageLink);
+            var response = await _resolvableRequest(pageLink).ConfigureAwait(false);
 
             _pageable = new Pageable(
                 response.Headers,
@@ -52,6 +51,10 @@ namespace Phaber.Infrastructure.Models {
             }
 
             _page = MoveTo(_pageable.LinkToNext).Result;
+
+            if (!_page.IsSuccess) {
+                return false;
+            }
 
             return true;
         }

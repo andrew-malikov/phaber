@@ -60,7 +60,7 @@ namespace Phaber.Infrastructure.Http {
 
             var authenticatedRequest = _httpPipeline.ApplyCredentials(request, _credentials);
 
-            return await SendRequest<T>(authenticatedRequest);
+            return await SendRequest<T>(authenticatedRequest).ConfigureAwait(false);
         }
 
         public Task<IFallibleBodyResponse<T>> MakeRequest<T, TB>(
@@ -91,7 +91,7 @@ namespace Phaber.Infrastructure.Http {
             var authenticatedRequest = _httpPipeline.ApplyCredentials(request, _credentials);
             var requestWithBody = _httpPipeline.ApplyBody(authenticatedRequest, body);
 
-            return await SendRequest<T>(requestWithBody);
+            return await SendRequest<T>(requestWithBody).ConfigureAwait(false);
         }
 
         private async Task<IFallibleBodyResponse<T>> SendRequest<T>(
@@ -111,7 +111,8 @@ namespace Phaber.Infrastructure.Http {
             }
 
             return HttpResponse<T>.OfSuccessful(
-                deserialized.Retrieve().ValueOrFailure()
+                deserialized.Retrieve().ValueOrFailure(),
+                response
             );
         }
 
@@ -193,7 +194,7 @@ namespace Phaber.Infrastructure.Http {
             var decoded = await _httpPipeline.ExtractBodyAsPlain(response);
             var deserialized = deserialize(decoded);
 
-            return HttpResponse<T>.OfSuccessful(deserialized);
+            return HttpResponse<T>.OfSuccessful(deserialized, response);
         }
 
         public Task<IFallibleResponse> MakePlainRequest(
@@ -220,7 +221,7 @@ namespace Phaber.Infrastructure.Http {
 
             var authenticatedRequest = _httpPipeline.ApplyCredentials(request, _credentials);
 
-            return await SendPlainRequest(authenticatedRequest);
+            return await SendPlainRequest(authenticatedRequest).ConfigureAwait(false);
         }
 
         public Task<IFallibleResponse> MakePlainRequest<TB>(
@@ -251,7 +252,7 @@ namespace Phaber.Infrastructure.Http {
             var authenticatedRequest = _httpPipeline.ApplyCredentials(request, _credentials);
             var requestWithBody = _httpPipeline.ApplyBody(authenticatedRequest, body);
 
-            return await SendPlainRequest(requestWithBody);
+            return await SendPlainRequest(requestWithBody).ConfigureAwait(false);
         }
 
         private async Task<IFallibleResponse> SendPlainRequest(
@@ -291,7 +292,7 @@ namespace Phaber.Infrastructure.Http {
 
             var authenticatedRequest = _httpPipeline.ApplyCredentials(request, _credentials);
 
-            return await SendStreamRequest(authenticatedRequest);
+            return await SendStreamRequest(authenticatedRequest).ConfigureAwait(false);
         }
 
         public Task<IFallibleBodyResponse<HttpResponseMessage>> MakeStreamRequest<TB>(
@@ -322,7 +323,7 @@ namespace Phaber.Infrastructure.Http {
             var authenticatedRequest = _httpPipeline.ApplyCredentials(request, _credentials);
             var requestWithBody = _httpPipeline.ApplyBody(authenticatedRequest, body);
 
-            return await SendStreamRequest(requestWithBody);
+            return await SendStreamRequest(requestWithBody).ConfigureAwait(false);
         }
 
         private async Task<IFallibleBodyResponse<HttpResponseMessage>> SendStreamRequest(
@@ -360,7 +361,7 @@ namespace Phaber.Infrastructure.Http {
                 async endpointToPage => await MakeRequest<TV>(
                     endpointToPage,
                     method
-                ) as HttpResponse<TV>
+                ).ConfigureAwait(false) as HttpResponse<TV>
             );
         }
     }

@@ -1,13 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Optional.Unsafe;
 using Phaber.Infrastructure.Tests.Environment;
 using Phaber.Unsplash.Clients;
 using Phaber.Unsplash.Entities;
+using Xunit;
 
 namespace Phaber.Infrastructure.Tests.Clients {
-    [TestClass]
     public class CollectionClientTests {
         private readonly ICollectionClient _client;
 
@@ -15,41 +14,41 @@ namespace Phaber.Infrastructure.Tests.Clients {
             _client = new EnvironmentHttpClientFabric().GetCollectionClient();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ShouldReturnCollectionById() {
             var collectionId = "4807737";
 
             var foundCollection = await _client.GetAsync(collectionId);
 
-            Assert.IsTrue(foundCollection.IsSuccess);
-            Assert.AreEqual(
+            Assert.True(foundCollection.IsSuccess);
+            Assert.Equal(
                 collectionId,
                 foundCollection.Retrieve().ValueOrFailure().Id
             );
         }
 
-        [TestMethod]
+        [Fact]
         public async Task ShouldReturnCollectionByModel() {
             var collectionModel = new Collection {Id = "4807737"};
 
             var foundCollection = await _client.GetAsync(collectionModel);
 
-            Assert.IsTrue(foundCollection.IsSuccess);
-            Assert.AreEqual(
+            Assert.True(foundCollection.IsSuccess);
+            Assert.Equal(
                 collectionModel,
                 foundCollection.Retrieve().ValueOrFailure()
             );
         }
 
-        [TestMethod]
+        [Fact]
         public void ShouldReturnPhotosByCollectionId() {
             var collectionId = "4807737";
 
             var pageablePhotos = _client.GetPhotos(collectionId, 1, 15);
 
             foreach (var photos in pageablePhotos) {
-                Assert.IsTrue(photos.IsSuccess);
-                Assert.IsTrue(photos
+                Assert.True(photos.IsSuccess);
+                Assert.True(photos
                     .Retrieve()
                     .ValueOrFailure()
                     .Any()
