@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaber.Unsplash", "Phaber.Unsplash\Phaber.Unsplash.csproj", "{A5AC24A4-F85D-41B0-813B-923197DD1E71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaber.Unsplash.Test", "Phaber.Unsplash.Test\Phaber.Unsplash.Test.csproj", "{72708319-08A9-4074-ACE0-BE1FCEC16EF1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaber.Unsplash.Tests", "Phaber.Unsplash.Tests\Phaber.Unsplash.Tests.csproj", "{72708319-08A9-4074-ACE0-BE1FCEC16EF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaber.Infrastructure", "Phaber.Infrastructure\Phaber.Infrastructure.csproj", "{C624B09B-EBEA-434A-863A-32EB0CEF84B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phaber.Infrastructure.Tests", "Phaber.Infrastructure.Tests\Phaber.Infrastructure.Tests.csproj", "{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,5 +48,29 @@ Global
 		{72708319-08A9-4074-ACE0-BE1FCEC16EF1}.Release|x64.Build.0 = Release|Any CPU
 		{72708319-08A9-4074-ACE0-BE1FCEC16EF1}.Release|x86.ActiveCfg = Release|Any CPU
 		{72708319-08A9-4074-ACE0-BE1FCEC16EF1}.Release|x86.Build.0 = Release|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Debug|x64.Build.0 = Debug|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Debug|x86.Build.0 = Debug|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Release|x64.ActiveCfg = Release|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Release|x64.Build.0 = Release|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Release|x86.ActiveCfg = Release|Any CPU
+		{C624B09B-EBEA-434A-863A-32EB0CEF84B9}.Release|x86.Build.0 = Release|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Release|x64.Build.0 = Release|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A4C4F45-9E70-48D5-8891-4C06B800F7D7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

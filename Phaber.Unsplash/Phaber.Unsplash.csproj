@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>Limited Unsplash API for .NET</Description>
     <PackageId>Phaber.Unsplash</PackageId>
     <Authors>Andrew Malikov</Authors>
-    <Version>1.3.3</Version>
+    <Version>2.0.0</Version>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>API Unsplash</PackageTags>
     <PackageProjectUrl>https://github.com/markupcode/phaber</PackageProjectUrl>
@@ -14,7 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Optional" Version="4.0.0" />
   </ItemGroup>
 
 </Project>

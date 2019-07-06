@@ -6,7 +6,7 @@ using System.Web;
 namespace Phaber.Unsplash.Helpers {
     public static class UriExtensions {
         /// <summary>
-        ///  Adds quries to absolute uri
+        ///  Adds queries to absolute uri
         /// </summary>
         /// <param name="uri">The absolute uri</param>
         /// <param name="queries">Queries to add</param>
@@ -36,7 +36,7 @@ namespace Phaber.Unsplash.Helpers {
         /// <summary>
         /// Combines the relative uri base and the relative uri into one, consolidating the '/' between them
         /// </summary>
-        /// <param name="urlBase">Base uri that will be combined</param>
+        /// <param name="baseUri">Base uri that will be combined</param>
         /// <param name="relativeUri">The relative path to combine</param>
         /// <returns>The merged uri</returns>
         public static Uri ResolveRelative(this Uri baseUri, string relativeUri) {
@@ -52,10 +52,13 @@ namespace Phaber.Unsplash.Helpers {
         /// <summary>
         /// Combines the relative uri base and the array of relatives uris into one, consolidating the '/' between them
         /// </summary>
-        /// <param name="urlBase">Base uri that will be combined</param>
-        /// <param name="relativeUrl">The array of relative paths to combine</param>
+        /// <param name="baseUri">Base uri that will be combined</param>
+        /// <param name="relativePaths">The array of relative paths to combine</param>
         /// <returns>The merged uri</returns>
-        public static Uri ResolveRelative(this Uri baseUri, params string[] relativePaths) {
+        public static Uri ResolveRelative(
+            this Uri baseUri,
+            params string[] relativePaths
+        ) {
             if (relativePaths.Length == 0)
                 return baseUri;
 

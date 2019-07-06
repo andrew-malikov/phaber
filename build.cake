@@ -35,15 +35,16 @@ Task("Build")
 
 Task("Test")
    .Does(() => {
-         var projects = GetFiles("./*Test/*.csproj");
+         var projects = GetFiles("./*Tests/*.csproj");
          
          var settings = new DotNetCoreTestSettings() {
             Configuration = configuration,
             NoBuild = true
          };
          
-         foreach(var project in projects) 
-            DotNetCoreTest(project.FullPath, settings);   
+         foreach(var project in projects) {
+            DotNetCoreTest(project.FullPath, settings);
+         }   
    });
 
 Task("CleanArtifacts").Does(() => {

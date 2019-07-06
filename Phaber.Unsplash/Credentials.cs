@@ -19,13 +19,5 @@ namespace Phaber.Unsplash {
             ApplicationId = appId;
             Secret = secret;
         }
-
-        public HttpRequestMessage Apply(HttpRequestMessage request) {
-            request.Headers.Add(
-                "Authorization", $"Client-ID {ApplicationId}"
-            );
-
-            return request;
-        }
     }
 }
